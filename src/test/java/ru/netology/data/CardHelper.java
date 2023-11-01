@@ -4,18 +4,24 @@ package ru.netology.data;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-    @Data
+
+@Data
     @AllArgsConstructor
     public class CardHelper {
 
-    private String cardNumber;
+    private String card;
+    private String month;
+    private String year;
+    private String name;
+    private String code;
 
-    public static CardHelper getAPPROVEDCard() {
-        return new CardHelper("4444 4444 4444 4441");
+    public static String getAPPROVEDCard() {
+        String APPROVED = "4444 4444 4444 4441";
+        return APPROVED;
     }
-
-    public static CardHelper getDECLINEDCard() {
-        return new CardHelper("4444 4444 4444 4442");
+    public static String getDECLINEDCard() {
+        String DECLINED = "4444 4444 4444 4442";
+        return DECLINED;
     }
 }
 

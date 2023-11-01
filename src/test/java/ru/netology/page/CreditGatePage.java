@@ -34,12 +34,22 @@ public class CreditGatePage {
         header3.shouldBe(visible);
     }
 
+    public void putData(CardHelper card) {
+        cardNumber.setValue(card.getCard());
+        month.setValue(card.getMonth());
+        year.setValue(card.getYear());
+        cardowner.setValue(card.getName());
+        cvc.setValue(card.getCode());
+        continueButton.click();
+    }
+
     public void waitNotificationSuccessVisible() {
-        successfulPurchase.shouldBe(Condition.visible);
+        successfulPurchase.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void waitNotificationFailedVisible() {
-        failedPurchase.shouldBe(Condition.visible);
+
+        failedPurchase.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void waitNotificationValidityErrorVisible() {

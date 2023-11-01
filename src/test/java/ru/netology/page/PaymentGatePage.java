@@ -39,15 +39,13 @@ public class PaymentGatePage {
         header3.shouldBe(visible);
     }
 
-    public void putDate() {
-        getMonth();
-        getYear();
-        getCardowner();
-        getCvc();
+    public void putData(CardHelper card) {
+        cardNumber.setValue(card.getCard());
+        month.setValue(card.getMonth());
+        year.setValue(card.getYear());
+        cardowner.setValue(card.getName());
+        cvc.setValue(card.getCode());
         continueButton.click();
-    }
-    public void putCard(CardHelper card) {
-        cardNumber.setValue(card.getCardNumber());
     }
 
     public void waitNotificationSuccessVisible() {
