@@ -373,7 +373,7 @@ public class CreditTest {
         val dashboardPage = new DashboardPage();
         val credit = dashboardPage.creditGate();
         credit.putData(DataHelper.getNameOwnerCardToOneLetter());
-        credit.waitNotificationFullWrongFormatVisible();
+        credit.waitNotificationRequiredFieldVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test

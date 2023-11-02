@@ -2,6 +2,7 @@ package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import lombok.Data;
 import ru.netology.data.CardHelper;
 
 import java.time.Duration;
@@ -13,11 +14,11 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Condition.visible;
 
+@Data
 public class CreditGatePage {
+
     private final SelenideElement header3 = $("h3.heading");
-
     private final SelenideElement cardNumber = $("input.input__control[placeholder='0000 0000 0000 0000']");
-
     private final SelenideElement month = $("input.input__control[placeholder='08']");
     private final SelenideElement year = $("input.input__control[placeholder='22']");
     private final SelenideElement cardowner = $(byText("Владелец")).parent().$("[class='input__control']");
@@ -43,23 +44,14 @@ public class CreditGatePage {
         continueButton.click();
     }
 
-    public void waitNotificationSuccessVisible() {
-        successfulPurchase.shouldBe(Condition.visible, Duration.ofSeconds(15));
-    }
-
-    public void waitNotificationFailedVisible() {
-
-        failedPurchase.shouldBe(Condition.visible, Duration.ofSeconds(15));
-    }
-
+    public void waitNotificationSuccessVisible() { successfulPurchase.shouldBe(Condition.visible, Duration.ofSeconds(15)); }
+    public void waitNotificationFailedVisible() { failedPurchase.shouldBe(Condition.visible, Duration.ofSeconds(15)); }
     public void waitNotificationValidityErrorVisible() {
         invalidCardExpirationDate.shouldBe(Condition.visible);
     }
-
     public void waitNotificationExpiredErrorVisible() {
         cardDateExpired.shouldBe(Condition.visible);
     }
-
     public void waitNotificationRequiredFieldVisible() {
         fieldRequired.shouldBe(Condition.visible);
     }

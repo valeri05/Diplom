@@ -1,19 +1,15 @@
 package ru.netology.test;
 
-
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
 import org.junit.jupiter.api.*;
-import ru.netology.data.CardHelper;
 import ru.netology.data.DataHelper;
 import ru.netology.data.SQLHelper;
 import ru.netology.page.DashboardPage;
 
-
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 public class PaymentTest {
 
@@ -38,7 +34,9 @@ public class PaymentTest {
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
+
 // positive scenarios
+
     @Test
     @DisplayName("Покупка по карте,операция прошла успешно,в БД появилась запись со статусом APPROVED")
     void shouldSuccessfulPurchaseWithAValidCard() {
@@ -56,7 +54,6 @@ public class PaymentTest {
         payment.putData(DataHelper.getDeclinedCard());
         payment.waitNotificationFailedVisible();
         assertEquals("DECLINED", SQLHelper.findPaymentStatus());
-
     }
     @Test
     @DisplayName("Покупка по карте Владельцем чье имя с апострофом,операция прошла успешно,в БД появилась запись со статусом APPROVED")
@@ -76,8 +73,10 @@ public class PaymentTest {
         payment.waitNotificationSuccessVisible();
         assertEquals("APPROVED", SQLHelper.findPaymentStatus());
     }
+
     // negative scenarios
     // card number
+
     @Test
     @DisplayName("Покупка по карте, номер которой заполнен пробелами. Появилось сообщение под полем 'Номер карты': «Неверный формат», " +
             "в БД запись отсутствует")
@@ -148,7 +147,9 @@ public class PaymentTest {
         payment.waitNotificationFailedVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
+
     // month
+
     @Test
     @DisplayName("Покупка по карте, месяц которой заполнен буквами. Появилось сообщение под полем 'Месяц': «Неверный формат», " +
             "в БД запись отсутствует")
@@ -239,7 +240,9 @@ public class PaymentTest {
         payment.waitNotificationExpiredErrorVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
+
     // year
+
     @Test
     @DisplayName("Покупка по карте, год которой заполнен нулями. Появилось сообщение под полем 'Год': «Неверный формат», " +
             "в БД запись отсутствует")
@@ -320,7 +323,9 @@ public class PaymentTest {
         payment.waitNotificationExpiredErrorVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
+
     // card owner
+
     @Test
     @DisplayName("Покупка по карте, имя владельца указано на русском языке. Появилось сообщение под полем 'Владелец': «Неверный формат», " +
             "в БД запись отсутствует")
@@ -391,7 +396,9 @@ public class PaymentTest {
         payment.waitNotificationFullWrongFormatVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
+
     // CVC
+
     @Test
     @DisplayName("Покупка по карте, поле CVC заполнено пробелами. Появилось сообщение под полем 'CVC': «Неверный формат», " +
             "в БД запись отсутствует")

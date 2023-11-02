@@ -1,8 +1,6 @@
 package ru.netology.data;
 
 import com.github.javafaker.Faker;
-import lombok.Value;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -26,145 +24,151 @@ public class DataHelper {
     public static String generateYear(int addYear, String pattern) {
         return LocalDate.now().plusYears(addYear).format(DateTimeFormatter.ofPattern(pattern));
     }
+    public static String getAPPROVEDCard() {
+        return "4444 4444 4444 4441";
+    }
+    public static String getDECLINEDCard() {
+        return "4444 4444 4444 4442";
+    }
     public static CardHelper getValidCard() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getDeclinedCard() {
-        return new CardHelper("4444 4444 4444 4442", "10", "23", "Alina Ivanova", "123");
+        return new CardHelper(getDECLINEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getNameWithApostrophe() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Alina' Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), "Alina' Ivanova", generateCVC("en"));
     }
     public static CardHelper getHyphenatedName() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Alina- Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), "Alina- Ivanova", generateCVC("en"));
     }
 
     // card number
 
     public static CardHelper getNumberCardInSpaces() {
 
-        return new CardHelper("                   ", "10", "23", "Alina Ivanova", "123");
+        return new CardHelper("                   ", generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getNumberCardNull() {
 
-        return new CardHelper("0000 0000 0000 0000", "10", "23", "Alina Ivanova", "123");
+        return new CardHelper("0000 0000 0000 0000", generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getNumberCardInText() {
-        return new CardHelper("РРРР РРРР РРРР РРРР", "10", "23", "Alina Ivanova", "123");
+        return new CardHelper("РРРР РРРР РРРР РРРР", generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getNumberCardInSymbols() {
-        return new CardHelper(".... .... .... ....", "10", "23", "Alina Ivanova", "123");
+        return new CardHelper(".... .... .... ....", generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getWithoutNumberCard() {
 
-        return new CardHelper("", "10", "23", "Alina Ivanova", "123");
+        return new CardHelper("", generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getNumberCardWithOneLessCharacter() {
-        return new CardHelper("4444 4444 4444 444", "10", "23", "Alina Ivanova", "123");
+        return new CardHelper("4444 4444 4444 444", generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getNotExistedCard() {
-        return new CardHelper("4444 4444 4444 4444", "10", "23", "Alina Ivanova", "123");
+        return new CardHelper("4444 4444 4444 4444", generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
 
     // month
 
     public static CardHelper getMonthCardText() {
-        return new CardHelper("4444 4444 4444 4441", "aa", "23", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), "aa", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getNullMonthCard() {
-        return new CardHelper("4444 4444 4444 4441", "00", "23", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), "00", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getMonthCardInSpaces() {
-        return new CardHelper("4444 4444 4444 4441", "  ", "23", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), "  ", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getMonthCardInSymbols() {
-        return new CardHelper("4444 4444 4444 4441", "..", "23", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), "..", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getWithoutMonthCard() {
-        return new CardHelper("4444 4444 4444 4441", "", "23", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), "", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getMonthCardToOneValue() {
-        return new CardHelper("4444 4444 4444 4441", "1", "23", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"M"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getMonthCardToThreeValue() {
-        return new CardHelper("4444 4444 4444 4441", "001", "23", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), "001", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getNotExistedMonthCard() {
-        return new CardHelper("4444 4444 4444 4441", "13", "23", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), "13", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getExpiredMonthCard() {
-        return new CardHelper("4444 4444 4444 4441", "09", "23", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(-1,"MM"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
 
     // year
 
     public static CardHelper getNullYearCard() {
-        return new CardHelper("4444 4444 4444 4441", "10", "00", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), "00", generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getYearCardInText() {
-        return new CardHelper("4444 4444 4444 4441", "10", "aa", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), "aa", generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getYearCardInSpaces() {
-        return new CardHelper("4444 4444 4444 4441", "10", "  ", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), "  ", generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getYearCardInSymbols() {
-        return new CardHelper("4444 4444 4444 4441", "10", "..", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), "..", generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getWithoutYearCard() {
-        return new CardHelper("4444 4444 4444 4441", "10", "", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), "", generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getYearCardToOneValue() {
-        return new CardHelper("4444 4444 4444 4441", "10", "1", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"y"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getYearCardToThreeValue() {
-        return new CardHelper("4444 4444 4444 4441", "10", "001", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), "001", generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getExpiredYearCard() {
-        return new CardHelper("4444 4444 4444 4441", "10", "20", "Alina Ivanova", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(-1,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
 
     // card owner
 
     public static CardHelper getRusNameOwnerCard() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Алина Иванова", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("ru"), generateCVC("en"));
     }
     public static CardHelper getNameOwnerCardNumericalValues() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "00000", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), "00000", generateCVC("en"));
     }
     public static CardHelper getNameOwnerCardInSpaces() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "             ", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), "             ", generateCVC("en"));
     }
     public static CardHelper getNameOwnerCardInSymbols() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "******", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), "******", generateCVC("en"));
     }
     public static CardHelper getWithoutNameOwnerCard() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), "", generateCVC("en"));
     }
     public static CardHelper getNameOwnerCardToOneLetter() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "N", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), "N", generateCVC("en"));
     }
     public static CardHelper getNameOwnerCardToThirtyFiveCharacters() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "123");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), "Nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", generateCVC("en"));
     }
 
     // CVC
 
     public static CardHelper getCVCCardInSpaces() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Alina Ivanova", "   ");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), "   ");
     }
     public static CardHelper getCVCCardInText() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Alina Ivanova", "aaa");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), "aaa");
     }
     public static CardHelper getCVCCardInSymbols() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Alina Ivanova", "...");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), "...");
     }
     public static CardHelper getCVCCardToOneValue() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Alina Ivanova", "1");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), "1");
     }
     public static CardHelper getCVCCardToForeValue() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Alina Ivanova", "1111");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), "1111");
     }
     public static CardHelper getWithoutCVCCard() {
-        return new CardHelper("4444 4444 4444 4441", "10", "23", "Alina Ivanova", "");
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"yy"), generateCardOwner("en"), "");
     }
 }
