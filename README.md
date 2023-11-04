@@ -65,8 +65,3 @@
 
 Для mysql команда ./gradlew clean test "-Ddb.url=jdbc:mysql://localhost:3306/app"
 Для postgresql команда ./gradlew clean test "-Ddb.url=jdbc:postgresql://localhost:5432/app"
-
-
-## Лицензия
-
-Опишите условия лицензии
