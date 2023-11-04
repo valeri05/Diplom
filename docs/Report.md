@@ -31,8 +31,8 @@
 
 #### Сформированы 2 вида отчёта:
 
-* [Gradle отчёт](docs/pic/Gradle.jpg)
-* [Allure отчёт](docs/pic/Allure.jpg)
+* [Gradle отчёт](https://github.com/valeri05/Diplom/blob/master/docs/pic/Gradle.jpg)
+* [Allure отчёт](https://github.com/valeri05/Diplom/blob/master/docs/pic/Allure.jpg)
 
 ### Общие рекомендации
 
