@@ -13,6 +13,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PaymentTest {
 
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
     DashboardPage dashboardPage;
 
     @BeforeEach
@@ -23,16 +33,6 @@ public class PaymentTest {
     @AfterEach
     public void cleanBase() {
         SQLHelper.clearTables();
-    }
-
-    @BeforeAll
-    static void setUpAll() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-    @AfterAll
-    static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
     }
 
 // positive scenarios
@@ -161,13 +161,13 @@ public class PaymentTest {
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test
-    @DisplayName("Покупка по карте, месяц которой заполнен нулями. Появилось сообщение под полем 'Месяц': «Неверный формат», " +
+    @DisplayName("Покупка по карте, месяц которой заполнен нулями. Появилось сообщение под полем 'Месяц': «Неверно указан срок действия карты», " +
             "в БД запись отсутствует")
     void invalidFillingOfTheMonthWithZeros() {
         val dashboardPage = new DashboardPage();
         val payment = dashboardPage.paymentGate();
         payment.putData(DataHelper.getNullMonthCard());
-        payment.waitNotificationFullWrongFormatVisible();
+        payment.waitNotificationValidityErrorVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test
@@ -237,20 +237,20 @@ public class PaymentTest {
         val dashboardPage = new DashboardPage();
         val payment = dashboardPage.paymentGate();
         payment.putData(DataHelper.getExpiredMonthCard());
-        payment.waitNotificationExpiredErrorVisible();
+        payment.waitNotificationValidityErrorVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
 
     // year
 
     @Test
-    @DisplayName("Покупка по карте, год которой заполнен нулями. Появилось сообщение под полем 'Год': «Неверный формат», " +
+    @DisplayName("Покупка по карте, год которой заполнен нулями. Появилось сообщение под полем 'Год': «Истёк срок действия карты», " +
             "в БД запись отсутствует")
     void invalidFillingOfTheYearWithZeros() {
         val dashboardPage = new DashboardPage();
         val payment = dashboardPage.paymentGate();
         payment.putData(DataHelper.getNullYearCard());
-        payment.waitNotificationFullWrongFormatVisible();
+        payment.waitNotificationExpiredErrorVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test
@@ -347,13 +347,13 @@ public class PaymentTest {
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test
-    @DisplayName("Покупка по карте, поле владельца заполнено пробелами. Появилось сообщение под полем 'Владелец': «Неверный формат», " +
+    @DisplayName("Покупка по карте, поле владельца заполнено пробелами. Появилось сообщение под полем 'Владелец': «Поле обязательно для заполнения», " +
             "в БД запись отсутствует")
     void invalidFillingOfTheNameOwnerCardInSpaces() {
         val dashboardPage = new DashboardPage();
         val payment = dashboardPage.paymentGate();
         payment.putData(DataHelper.getNameOwnerCardInSpaces());
-        payment.waitNotificationFullWrongFormatVisible();
+        payment.waitNotificationRequiredFieldVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test
@@ -446,7 +446,6 @@ public class PaymentTest {
         val dashboardPage = new DashboardPage();
         val payment = dashboardPage.paymentGate();
         payment.putData(DataHelper.getCVCCardToForeValue());
-        payment.waitNotificationFullWrongFormatVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test

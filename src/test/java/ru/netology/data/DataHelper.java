@@ -88,10 +88,10 @@ public class DataHelper {
         return new CardHelper(getAPPROVEDCard(), "", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getMonthCardToOneValue() {
-        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"M"), generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
+        return new CardHelper(getAPPROVEDCard(), "1", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getMonthCardToThreeValue() {
-        return new CardHelper(getAPPROVEDCard(), "001", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
+        return new CardHelper(getAPPROVEDCard(), "111", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getNotExistedMonthCard() {
         return new CardHelper(getAPPROVEDCard(), "13", generateYear(0,"yy"), generateCardOwner("en"), generateCVC("en"));
@@ -118,10 +118,10 @@ public class DataHelper {
         return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), "", generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getYearCardToOneValue() {
-        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(0,"y"), generateCardOwner("en"), generateCVC("en"));
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), "1", generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getYearCardToThreeValue() {
-        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), "001", generateCardOwner("en"), generateCVC("en"));
+        return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), "111", generateCardOwner("en"), generateCVC("en"));
     }
     public static CardHelper getExpiredYearCard() {
         return new CardHelper(getAPPROVEDCard(), generateMonth(0,"MM"), generateYear(-1,"yy"), generateCardOwner("en"), generateCVC("en"));

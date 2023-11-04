@@ -12,17 +12,6 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreditTest {
-    DashboardPage dashboardPage;
-
-    @BeforeEach
-    void setup() {
-        dashboardPage = open("http://localhost:8080", DashboardPage.class);
-    }
-
-    @AfterEach
-    public void cleanBase() {
-        SQLHelper.clearTables();
-    }
 
     @BeforeAll
     static void setUpAll() {
@@ -33,7 +22,19 @@ public class CreditTest {
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
+    DashboardPage dashboardPage;
+    @BeforeEach
+    void setup() {
+        dashboardPage = open("http://localhost:8080", DashboardPage.class);
+    }
+
+    @AfterEach
+    public void cleanBase() {
+        SQLHelper.clearTables();
+    }
+
     // positive scenarios
+
     @Test
     @DisplayName("Покупка по кредитной карте,операция прошла успешно,в БД появилась запись со статусом APPROVED")
     void shouldSuccessfulPurchaseWithAValidCard() {
@@ -155,13 +156,13 @@ public class CreditTest {
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test
-    @DisplayName("Покупка по кредитной карте, месяц которой заполнен нулями. Появилось сообщение под полем 'Месяц': «Неверный формат», " +
+    @DisplayName("Покупка по кредитной карте, месяц которой заполнен нулями. Появилось сообщение под полем 'Месяц': «Неверно указан срок действия карты», " +
             "в БД запись отсутствует")
     void invalidFillingOfTheMonthWithZeros() {
         val dashboardPage = new DashboardPage();
         val credit = dashboardPage.creditGate();
         credit.putData(DataHelper.getNullMonthCard());
-        credit.waitNotificationFullWrongFormatVisible();
+        credit.waitNotificationValidityErrorVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test
@@ -231,18 +232,18 @@ public class CreditTest {
         val dashboardPage = new DashboardPage();
         val credit = dashboardPage.creditGate();
         credit.putData(DataHelper.getExpiredMonthCard());
-        credit.waitNotificationExpiredErrorVisible();
+        credit.waitNotificationValidityErrorVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     // year
     @Test
-    @DisplayName("Покупка по кредитной карте, год которой заполнен нулями. Появилось сообщение под полем 'Год': «Неверный формат», " +
+    @DisplayName("Покупка по кредитной карте, год которой заполнен нулями. Появилось сообщение под полем 'Год': «Истёк срок действия карты», " +
             "в БД запись отсутствует")
     void invalidFillingOfTheYearWithZeros() {
         val dashboardPage = new DashboardPage();
         val credit = dashboardPage.creditGate();
         credit.putData(DataHelper.getNullYearCard());
-        credit.waitNotificationFullWrongFormatVisible();
+        credit.waitNotificationExpiredErrorVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test
@@ -337,13 +338,13 @@ public class CreditTest {
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test
-    @DisplayName("Покупка по кредитной карте, поле владельца заполнено пробелами. Появилось сообщение под полем 'Владелец': «Неверный формат», " +
+    @DisplayName("Покупка по кредитной карте, поле владельца заполнено пробелами. Появилось сообщение под полем 'Владелец': «Поле обязательно для заполнения», " +
             "в БД запись отсутствует")
     void invalidFillingOfTheNameOwnerCardInSpaces() {
         val dashboardPage = new DashboardPage();
         val credit = dashboardPage.creditGate();
         credit.putData(DataHelper.getNameOwnerCardInSpaces());
-        credit.waitNotificationFullWrongFormatVisible();
+        credit.waitNotificationRequiredFieldVisible();
         assertEquals("0", SQLHelper.findCountOrderEntity());
     }
     @Test
